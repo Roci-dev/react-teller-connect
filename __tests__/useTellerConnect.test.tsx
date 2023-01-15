@@ -57,10 +57,5 @@ describe('useTellerConnect', () => {
         expect(screen.getByRole('button'));
     });
 
-    it('should render with provided applicationId', async () => {
-        render(<TellerHook config={configuration}/>);
-        expect(screen.getByRole('button'));
-    });
-
 
 })
