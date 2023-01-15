@@ -1,15 +1,3 @@
 {
-  "presets": ["@babel/preset-react", "@babel/preset-env"],
-  "plugins": [
-    "babel-plugin-typescript-to-proptypes",
-    "@babel/plugin-proposal-class-properties"
-  ],
-  "env": {
-    "testing": {
-      "presets": [
-        ["@babel/preset-env", { "targets": { "node": "current" } }],
-        "@babel/preset-typescript"
-      ]
-    }
-  }
+
 }

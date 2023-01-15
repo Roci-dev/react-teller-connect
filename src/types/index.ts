@@ -6,17 +6,17 @@ export interface TellerHandler {
     destroy: () => void;
 }
 
-export type TellerLinkOnLoad = () => void;
 
 export type TellerOnExit = (error: null | TellerConnectError) => void;
-export type TellerOnSuccess = (error: null | TellerConnectError, metadata: TellerOnSuccessMetadata) => void;
+export type TellerOnSuccess = (data: TellerOnSuccessMetadata) => void;
 export type TellerOnInit = () => void;
+export type TellerOnFailure = (error : TellerOnFailureData) => void;
 
-export interface TellerCommonLinkOptions {
+export interface TellerConnectCommonOptions {
     onSuccess: TellerOnSuccess;
     onExit?: TellerOnExit;
     onInit?: TellerOnInit;
-    onFailure: TellerOnFailure;
+    onFailure?: TellerOnFailure;
 }
 
 export type TellerUser = {
@@ -40,7 +40,18 @@ export enum TellerErrorCodes {
     ERROR = "error",
 }
 
-export interface TellerOnFailure {
+export enum HTTPStatusCodes {
+    Ok = "200",
+    BadRequest = "400",
+    Unauthorized = "401",
+    Forbidden = "403",
+    NotFound = "404",
+    Gone = "410",
+    UnprocessableEntity = "422",
+    BadGateway = "502"
+}
+
+export interface TellerOnFailureData {
     type: TellerErrorTypes,
     code: TellerErrorCodes,
     message: string;
@@ -79,7 +90,7 @@ export enum SelectAccount {
     multiple = "multiple"
 }
 
-export type TellerConnectOptions  = TellerCommonLinkOptions & {
+export type TellerConnectOptions  = TellerConnectCommonOptions & {
     // The environment to use for enrolling the user's accounts. Valid values are "sandbox", "development" and "production". The "sandbox" enviroment never communicates with a real institution, it is used to create sandbox enrollments, accounts and tokens. The "development" environment is the same as "production" but is not billed and has a hard limit of 100 connected accounts.
     environment?: null | Environment;
     // A string representing your Application ID, which can be found inside the Teller Dashboard. Simply pass the value here, then we'll know who you are

@@ -65,7 +65,6 @@ const createTellerHandler = (
             return;
         }
 
-        state.teller.destroy();
         state.teller = null;
     };
 
